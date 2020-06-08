@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 # This script generates the file /docs/index.md
 
-PAMFOLDER=$1
-if [ -z "$PAMFOLDER" ]; then
-  PAMFOLDER=$(pwd)
+DIGIHOTFOLDER=$1
+if [ -z "$DIGIHOTFOLDER" ]; then
+  DIGIHOTFOLDER=$(pwd)
 fi
 
-echo "searching for pam projects in $PAMFOLDER"
+echo "searching for digihot projects in $DIGIHOTFOLDER"
 
 names=()
 
 while IFS= read -r line; do
     names+=( "$line" )
-done < <(find $PAMFOLDER -name "deploy-dev.yml" | sort | rev | cut -d '/' -f 4 | rev )
+done < <(find $DIGIHOTFOLDER -name "deploy-dev.yml" | sort | rev | cut -d '/' -f 4 | rev )
 
 FILE="index.md"
 
-echo "# PAM deployments" > $FILE
+echo "# digihot deployments" > $FILE
 echo "|    |    |    |    |" >> $FILE
 echo "|:---|:---|:---|:---|" >> $FILE
 count=0
 
 for name in "${names[@]}"
 do
-   if [[ "$name" == pam-* ]]; then
+   if [[ "$name" == digihot-* ]]; then
       echo "found project $name that is compatible with github release workflow"
       count=`expr $count + 1`
       remainder=`expr $count % 4`
@@ -34,4 +34,4 @@ do
    fi
 done
 
-echo "generated $FILE, NOTE: you have to manually move index.md to pam-deploy/docs/. Git push it to update pam-deploy dashboard"
+echo "generated $FILE, NOTE: you have to manually move index.md to digihot-deploy/docs/. Git push it to update digihot-deploy dashboard"
