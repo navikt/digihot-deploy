@@ -1,4 +1,4 @@
-name: 'Arbeidsplassen post-deploy action'
+name: 'Digihot post-deploy action'
 description: 'After a successful deployment, do some steps'
 runs:
   using: 'docker'
