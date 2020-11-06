@@ -28,4 +28,6 @@ GIT_LOG=$(git log $LATEST_RELEASE..$VERSION_TAG --no-merges --pretty=format:"* %
 CHANGELOG="$GIT_TREE
 $COMPARE_LINK
 $GIT_LOG"
-echo "CHANGE_LOG=${CHANGELOG}" >> $GITHUB_ENV
+echo "CHANGE_LOG<<EOF" >> "$GITHUB_ENV"
+echo "$CHANGELOG" >> "$GITHUB_ENV"
+echo "EOF" >> "$GITHUB_ENV"
