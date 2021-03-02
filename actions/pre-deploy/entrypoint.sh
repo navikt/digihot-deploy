@@ -6,7 +6,6 @@ GITHUB_URL="https://api.github.com/repos/$GITHUB_REPOSITORY"
 DRAFTS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$GITHUB_URL/releases?per_page=20" | jq -r '. | map(select(.draft == true)) | length')
 if [[ "$DRAFTS" -gt "10" ]]; then
   echo "you have too many release drafts in queue, please release to production or clean up drafts!"
-  exit 1
 fi
 
 # Detecting conflicting runs
