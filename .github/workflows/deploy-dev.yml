@@ -24,7 +24,7 @@ on:
       NODE_VERSION:
         required: false
         type: string
-        default: "14"
+        default: "16"
       BUILD_CACHE:
         required: false
         type: string
