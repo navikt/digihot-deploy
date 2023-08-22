@@ -1,0 +1,50 @@
+on:
+  workflow_call:
+    inputs:
+      NAIS_RESOURCE:
+        required: false
+        type: string
+        default: "naiserator.yml"
+      NAIS_VARS:
+        required: false
+        type: string
+        default: "naiserator-prod.json"
+      CLUSTER:
+        required: false
+        type: string
+        default: "prod-gcp"
+      TEAM:
+        required: false
+        type: string
+        default: "teamdigihot"
+    secrets:
+      NAIS_DEPLOY_APIKEY:
+        required: true
+env:
+  VERSION_TAG: ${{ github.event.release.tag_name }}
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.CLUSTER }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ env.VERSION_TAG }}
+      - name: pre-production
+        uses: navikt/digihot-deploy/actions/pre-production@v3
+        env:
+          PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          TEAM: ${{ inputs.TEAM }}
+      - uses: nais/deploy/actions/deploy@v1
+        name: deploy to ${{ inputs.CLUSTER }}
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: ${{ inputs.CLUSTER }}
+          RESOURCE: ${{ inputs.NAIS_RESOURCE }}
+          VARS: ${{ inputs.NAIS_VARS }}
+      - name: post-production
+        uses: navikt/digihot-deploy/actions/post-production@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
