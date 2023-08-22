@@ -121,6 +121,8 @@ jobs:
         uses: navikt/digihot-deploy/actions/pre-deploy@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          TEAM: ${{ inputs.TEAM }}
 
       - name: docker-build-push
         uses: nais/docker-build-push@v0
