@@ -6,6 +6,8 @@ if [ -n "$GITHUB_WORKSPACE" ]; then
   cd "$GITHUB_WORKSPACE" || exit
 fi
 
+git fetch --tags --force
+
 if ! git describe --abbrev=0 --tags &>/dev/null; then
   FIRST_COMMIT=$(git rev-list --max-parents=0 HEAD)
   git tag "CD_autocreate_tag" $FIRST_COMMIT
