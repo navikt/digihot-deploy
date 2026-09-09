@@ -7,7 +7,6 @@ if [ -n "$GITHUB_WORKSPACE" ]; then
 fi
 
 git fetch --tags --force
-git tag --list
 
 if ! git show-ref --tags --quiet; then
   FIRST_COMMIT=$(git rev-list --max-parents=0 HEAD)
