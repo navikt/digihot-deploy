@@ -7,6 +7,7 @@ if [ -n "$GITHUB_WORKSPACE" ]; then
 fi
 
 git fetch --tags --force
+git tag --list
 
 if ! git describe --abbrev=0 --tags >/dev/null 2>&1; then
   if ! git show-ref --tags --quiet; then
