@@ -12,6 +12,8 @@ jobs:
   tag-and-release:
     name: Tag/Release the github actions
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v1
       - name: push tag version
