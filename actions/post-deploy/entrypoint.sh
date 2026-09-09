@@ -9,19 +9,13 @@ fi
 git fetch --tags --force
 git tag --list
 
-if ! git describe --abbrev=0 --tags >/dev/null 2>&1; then
-  if ! git show-ref --tags --quiet; then
-    FIRST_COMMIT=$(git rev-list --max-parents=0 HEAD)
-    git tag "CD_autocreate_tag" "$FIRST_COMMIT"
-    echo "No tags found. Created one on the initial commit"
-  else
-    git tag "CD_autocreate_tag" HEAD
-    echo "Tags exist, but HEAD is not describable. Created temporary tag on HEAD"
-  fi
+if ! git show-ref --tags --quiet; then
+  FIRST_COMMIT=$(git rev-list --max-parents=0 HEAD)
+  git tag "CD_autocreate_tag" "$FIRST_COMMIT"
+  echo "No tags found. Created one on the initial commit"
 fi
 
-LATEST_TAG=$(git describe --abbrev=0 --tags)
-
+LATEST_TAG=$(git describe --abbrev=0 --tags --always)
 
 if [ -z "$DRY_RUN" ]; then
    git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
