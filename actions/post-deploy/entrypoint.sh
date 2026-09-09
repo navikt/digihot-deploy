@@ -16,8 +16,6 @@ fi
 
 LATEST_TAG=$(git describe --abbrev=0 --tags)
 
-LATEST_TAG=$(git describe --abbrev=0 --tags)
-
 if [ -z "$DRY_RUN" ]; then
    git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
    git fetch --tags
