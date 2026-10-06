@@ -82,7 +82,7 @@ runs:
         fi
 
         if [[ "${notify}" == "true" ]]; then
-          message="Release ${RELEASE_NAME} (${RELEASE_TAG}) mangler uavhengig PR-godkjenning: ${reason}. ${RELEASE_URL}. Har noen lyst til å ta seg ei litta tur til NDA og godkjenne den?"
+          message="Release ${RELEASE_NAME} (${RELEASE_TAG}) mangler uavhengig PR-godkjenning: ${reason}. Har noen lyst til å ta seg ei litta tur til <${RELEASE_URL}|NDA> og godkjenne den?"
           if [[ -n "${pull_request_url}" ]]; then
             message+=" PR: ${pull_request_url}."
           fi
